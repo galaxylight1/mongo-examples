@@ -25,6 +25,14 @@ describe("Updating records", () => {
   });
 
   it("A model instance can update", (done) => {
-    joe.updateOne({ name: "Joe" });
+    assertName(joe.updateOne({ name: "Alex" }), done);
   });
+
+  it("A model class can update", (done) => {
+    assertName(User.updateMany({ name: "Joe" }, { name: "Alex" }), done);
+  });
+
+  it("A model class can update one record", (done) => {});
+
+  it("A model class can find a record with ID and update ", (done) => {});
 });
