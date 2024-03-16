@@ -10,6 +10,7 @@ describe("Updating records", () => {
   });
 
   function assertName(operation, done) {
+    // helper fn
     operation
       .then(() => User.find({}))
       .then((users) => {
@@ -32,7 +33,11 @@ describe("Updating records", () => {
     assertName(User.updateMany({ name: "Joe" }, { name: "Alex" }), done);
   });
 
-  it("A model class can update one record", (done) => {});
+  it("A model class can update one record", (done) => {
+    assertName(User.findOneAndUpdate({ name: "Joe" }, { name: "Alex" }), done);
+  });
 
-  it("A model class can find a record with ID and update ", (done) => {});
+  it("A model class can find a record with ID and update ", (done) => {
+    assertName(User.findByIdAndUpdate(joe._id, { name: "Alex" }), done);
+  });
 });
