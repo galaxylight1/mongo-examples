@@ -20,4 +20,31 @@ describe("deleting a user", () => {
         done();
       });
   });
+
+  it("class method remove", (done) => {
+    User.deleteMany({ name: "Joe" })
+      .then(() => User.findOne({ name: "Joe" }))
+      .then((user) => {
+        assert(user === null);
+        done();
+      });
+  });
+
+  it("class method findOneAndRemove", (done) => {
+    User.deleteOne({ name: "Joe" })
+      .then(() => User.findOne({ name: "Joe" }))
+      .then((user) => {
+        assert(user === null);
+        done();
+      });
+  });
+
+  it('class method findByIdAndRemove', (done) => {
+    User.deleteOne({ _id: joe._id })
+    .then(() => User.findOne({ name: "Joe" }))
+    .then((user) => {
+      assert(user === null);
+      done();
+    });
+  });
 });
