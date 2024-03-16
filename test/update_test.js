@@ -9,15 +9,22 @@ describe("Updating records", () => {
     joe.save().then(() => done());
   });
 
-  it("instance type using set n save", (done) => {
-    joe.set("name", "Alex");
-    joe
-      .save()
+  function assertName(operation, done) {
+    operation
       .then(() => User.find({}))
       .then((users) => {
         assert(users.length === 1);
         assert(users[0].name === "Alex");
         done();
       });
+  }
+
+  it("instance type using set n save", (done) => {
+    joe.set("name", "Alex");
+    assertName(joe.save(), done);
+  });
+
+  it("A model instance can update", (done) => {
+    joe.updateOne({ name: "Joe" });
   });
 });
