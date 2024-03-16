@@ -9,7 +9,7 @@ describe("Reading users out of database", () => {
   });
   it("finds all users with name of joe", (done) => {
     User.find({ name: "Joe" }).then((users) => {
-      assert(users[0]._id === joe._id); // ????
+      assert(users[0]._id.toString() === joe._id.toString()); // ????
       done();
     });
   });
