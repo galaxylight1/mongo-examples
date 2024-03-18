@@ -18,4 +18,13 @@ describe("Associations", () => {
       done();
     });
   });
+
+  it.only("saves a relation between a user and a blogpost", (done) => {
+    User.findOne({ name: "Joe" })
+      .populate("blogPosts") // to get the actual object instead of object's ID
+      .then((user) => {
+        console.log(user);
+        done();
+      });
+  });
 });
