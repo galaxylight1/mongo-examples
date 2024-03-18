@@ -36,10 +36,14 @@ describe("Associations", () => {
         populate: {
           path: "comments",
           model: "comment",
+          populate: {
+            path: "user",
+            model: "user",
+          },
         },
       })
       .then((user) => {
-        console.log(user.blogPosts[0]);
+        console.log(user.blogPosts[0].comments[0]);
         done();
       });
   });
