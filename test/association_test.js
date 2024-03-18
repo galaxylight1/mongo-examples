@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const assert = require("assert");
 const User = require("../src/user");
 const Comment = require("../src/comment");
 const BlogPost = require("../src/blogPost");
@@ -19,11 +20,26 @@ describe("Associations", () => {
     });
   });
 
-  it.only("saves a relation between a user and a blogpost", (done) => {
+  it("saves a relation between a user and a blogpost", (done) => {
     User.findOne({ name: "Joe" })
       .populate("blogPosts") // to get the actual object instead of object's ID
       .then((user) => {
-        console.log(user);
+        assert(user.blogPosts[0].title === "JS is great");
+        done();
+      });
+  });
+
+  it("saves a full relation graph", () => {
+    User.findOne({ name: "Joe" })
+      .populate({
+        path: "blogPosts",
+        populate: {
+          path: "comments",
+          model: "comment",
+        },
+      })
+      .then((user) => {
+        console.log(user.blogPosts[0]);
         done();
       });
   });
